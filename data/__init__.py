@@ -16,9 +16,15 @@ def raws():
         montage = mne.channels.read_montage('biosemi64')
         eog_names = ['EXG' + str(n) for n in range(1, 5)]
         emg_names = ['EXG' + str(n) for n in range(5, 9)]
-
-        yield mne.io.read_raw_edf(f, montage=montage, eog=eog_names,
+        
+        raw = mne.io.read_raw_edf(f, montage=montage, eog=eog_names,
                                   misc=emg_names, verbose='ERROR')
+        
+        raw.info['subject_info'] = {'pid': f.name[7:11],
+                                    'group': f.name[3:6]}
+        
+
+        yield raw
 
 
 # Generator for the events
