@@ -45,3 +45,26 @@ def events():
         eventarray[:, 2] = [101, 102, 101, 102]
 
         yield eventarray
+
+
+
+# generator for 4s chunk events
+#def sliced_events(segment_length=4.0):
+#    for raw in raws():
+        # find the events in the raw data
+#        eventarray = mne.find_events(raw, verbose='ERROR')
+
+        # throw warning if the events seem off
+#        if eventarray.shape[0] != 4:
+#            warnings.warn(f"Expected 4 events, but got {eventarray.shape[0]}.")
+
+        # manually fix issues with the triggers
+        # 101 = eyes open, 102 = eyes closed
+#        eventarray[:, 1] = 0
+#        eventarray[:, 2] = [101, 102, 101, 102]
+        
+        # make a new array with 4-s chunks, same codes
+#        eventarray = np.
+            
+#        yield eventarray
+
