@@ -5,6 +5,7 @@ import warnings
 
 datafolder = Path('data/')
 
+n = len(sorted(list(datafolder.glob(pattern='*RS.bdf'))))
 
 # Generator for the raw files
 def raws():
@@ -17,7 +18,7 @@ def raws():
         eog_names = ['EXG' + str(n) for n in range(1, 5)]
         emg_names = ['EXG' + str(n) for n in range(5, 9)]
         
-        raw = mne.io.read_raw_edf(f, montage=montage, eog=eog_names,
+        raw = mne.io.read_raw_edf(str(f), montage=montage, eog=eog_names,
                                   misc=emg_names, verbose='ERROR')
         
         raw.info['subject_info'] = {'pid': f.name[7:11],
@@ -29,8 +30,6 @@ def raws():
 
 # Generator for the events
 def events():
-
-    datafiles = sorted(list(datafolder.glob(pattern='*RS.bdf')))
 
     for raw in raws():
         # find the events in the raw data
