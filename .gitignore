@@ -62,3 +62,9 @@ docs/_build/
 
 # PyBuilder
 target/
+
+Scratch/graph_analyses.ipynb
+
+Scratch/GraphAnalysis.Rmd
+
+GraphAnalysis.Rmd
