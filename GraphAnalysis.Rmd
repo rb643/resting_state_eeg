@@ -65,18 +65,18 @@ assign((b),temp)
 weights <- sort(E(alpha)$weight, decreasing=TRUE)
 threshold <- weights[length(weights)*0.2]
 g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
-plot(g,layout = layout.circle, vertex.size=(strength(g)),edge.width=E(alpha)$weight)
+lay = as.matrix(read.csv("./Tools/Biosemi64_Layout.csv",header = FALSE))
+rglplot(g,layout = lay, vertex.size=(strength(g)),edge.width=E(alpha)$weight)
 ```
 # plotting example of minimal spanning tree
 ```{r, include=FALSE}
-g=mst(alpha)
+g_mst=mst(alpha)
 plot(g,vertex.size=(strength(g)))
 ```
 
 # plotting example of thresholded matrix with colour attributes
 ```{r, include=FALSE}
 col_fun = colorRamp2(c(min(E(g)$weight),max(E(g)$weight)), c("darkblue","darkred"))
-
 weights <- sort(E(alpha)$weight, decreasing=TRUE)
 threshold <- weights[length(weights)*0.2]
 g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
