@@ -47,12 +47,16 @@ colnames(A) = EEGNames
 temp = graph_from_adjacency_matrix(A, mode = "undirected", weighted = TRUE, diag = FALSE,
   add.colnames = NULL, add.rownames = NULL)
 assign((b),temp)
+
 }
 }
 
-````
+```
 
-weights <- sort(alpha$weight, decreasing=TRUE)
-threshold <- weights[length(weights) * 0.02]
-g2 <- delete.edges(g, which(E(g)$weight < threshold)-1)
-g2 <- remove.edge.attribute(g, "weight")
+# plotting example
+```{r, include=FALSE}
+weights <- sort(E(alpha)$weight, decreasing=TRUE)
+threshold <- weights[length(weights)*0.2]
+g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
+plot(g)
+```
