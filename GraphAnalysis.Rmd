@@ -36,15 +36,21 @@ for (i in inputlist) {
 # read csv file
 dat=read.csv(j,header=TRUE)
 
+#loop over files
 for (b in bands) {
-data = subset(dat,select = c('channel_1','channel_2', b))
-el=as.matrix(data)
-G <- graph.data.frame(el,directed=FALSE);
-A <- as_adjacency_matrix(G,type="both",names=TRUE,sparse=FALSE,attr=b)
-rownames(A) = EEGNames
-colnames(A) = EEGNames
-# slightly annoying workaround to make the graph weighted...
-temp = graph_from_adjacency_matrix(A, mode = "undirected", weighted = TRUE, diag = FALSE,
+  #load data
+  data = subset(dat,select = c('channel_1','channel_2', b))
+  #convert to matrix
+  el=as.matrix(data)
+  #convert to graph
+  G <- graph.data.frame(el,directed=FALSE);
+  #convert to weighted adjacency matrix
+  A <- as_adjacency_matrix(G,type="both",names=TRUE,sparse=FALSE,attr=b)
+  #set names
+  rownames(A) = EEGNames
+  colnames(A) = EEGNames
+  #slightly annoying workaround to create a weighted graph object...
+  temp = graph_from_adjacency_matrix(A, mode = "undirected", weighted = TRUE, diag = FALSE,
   add.colnames = NULL, add.rownames = NULL)
 assign((b),temp)
 
@@ -58,5 +64,5 @@ assign((b),temp)
 weights <- sort(E(alpha)$weight, decreasing=TRUE)
 threshold <- weights[length(weights)*0.2]
 g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
-plot(g)
+plot(g,vertex.size=(strength(g)),edge.width=E(alpha)$weight)
 ```
