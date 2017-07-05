@@ -59,10 +59,28 @@ assign((b),temp)
 
 ```
 
-# plotting example
+# plotting example of thresholded matrix
 ```{r, include=FALSE}
 weights <- sort(E(alpha)$weight, decreasing=TRUE)
 threshold <- weights[length(weights)*0.2]
 g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
-plot(g,vertex.size=(strength(g)),edge.width=E(alpha)$weight)
+plot(g,layout = layout.circle, vertex.size=(strength(g)),edge.width=E(alpha)$weight)
 ```
+# plotting example of minimal spanning tree
+```{r, include=FALSE}
+g=mst(alpha)
+plot(g,vertex.size=(strength(g)))
+```
+
+# plotting example of thresholded matrix with colour attributes
+```{r, include=FALSE}
+c_scale <- colorRamp(c('red','blue'))
+weights <- sort(E(alpha)$weight, decreasing=TRUE)
+threshold <- weights[length(weights)*0.2]
+g=delete.edges(alpha, which(E(alpha)$weight <=threshold))
+E(g)$color = apply(c_scale(E(g)$weight), 1, function(x) rgb(x[1]/255,x[2]/255,x[3]/255) )
+plot(g,layout = layout.circle, vertex.size=(strength(g)),edge.width=E(g)$color)
+```
+
+
+
