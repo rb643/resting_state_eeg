@@ -19,7 +19,8 @@ def raws():
         emg_names = ['EXG' + str(n) for n in range(5, 9)]
         
         raw = mne.io.read_raw_edf(str(f), montage=montage, eog=eog_names,
-                                  misc=emg_names+['Status'], verbose="ERROR")
+                                  #verbose='ERROR')
+                                  misc=emg_names+['Status'], verbose='ERROR')
         
         raw.info['subject_info'] = {'pid': f.name[7:11],
                                     'group': f.name[3:6]}
@@ -33,11 +34,14 @@ def events():
 
     for raw in raws():
         # find the events in the raw data
-        eventarray = mne.find_events(raw, verbose="ERROR")
-        #eventarray = mne.find_events(raw, stim_channel='Status', verbose="ERROR")
+        #eventarray = mne.find_events(raw, verbose="ERROR")
+        eventarray = mne.find_events(raw, stim_channel='Status', verbose="ERROR")
         # throw warning if the events seem off
+        print(eventarray)
+        print(eventarray[:, 1])
+        print(eventarray[:, 2])
         if eventarray.shape[0] != 4:
-            warnings.warn("Expected 4 events, but got {eventarray.shape[0]}")
+            warnings.warn("Expected 4 events, but got {events}".format(events=eventarray.shape[0]))
 
         # manually fix issues with the triggers
         # 101 = eyes open, 102 = eyes closed
