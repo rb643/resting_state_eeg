@@ -6,7 +6,7 @@ These scripts are to be used for fully-automated pre-processing of resting state
 2. Very basic pre-processing includes: demeaning, detrending, low-pass filter below 60Hz, re-referencing to mastoid reference, bandpass filtering of possible 50Hz line-noise and resampling to 256Hz.
 3. Optional visual inspection after basic pre-processing
 4. Optional reconstruction of noisy channels (though only use this if a channel is absolutely rubbish!)
-5. Removal of noise using ICA decomposition 
+5. Optional removal of noise using ICA decomposition 
 6. Segmenting continuous recording into 4-second segments to be used for WPLI analyses later on
 7. Autoreject bad epochs prior to WPLI analyses
 8. Calculate the weighted phase lag index using multi-taper fast fourier transform for each of the 4 frequency bands separately
