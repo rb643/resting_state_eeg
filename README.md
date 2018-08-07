@@ -26,17 +26,26 @@ These scripts are to be used for fully-automated pre-processing of resting state
 
 ## What scripts do what
 There is one main notebook that runs the whole pre-processing pipeline
-[here] (https://github.com/rb643/resting_state_eeg/blob/master/rsEEG_preproc_ica_autoreject.ipynb) 
+(https://github.com/rb643/resting_state_eeg/blob/master/rsEEG_preproc_ica_autoreject.ipynb) which runs:
+1. Basic pre-processing, filtering and auto-reject on segments and channels
+2. Plots basic QC by showing number of rejected epochs (out of a total of 28) and the individual connectivity distributions
+3. Runs cluster based non-parametric permutation group comparisons (https://www.ncbi.nlm.nih.gov/pubmed/17517438)
+4. Runs basic graph metrics on thresholded matrices (MST + 10%)
+
 
 ## Dependencies
 There are a few external scripts/toolboxes that this notebook depend upon:
-* A full working installation of MNE Python  [here] (https://www.martinos.org/mne/stable/install_mne_python.html). 
-* A full working installation of Autoreject for MNE  [here] (http://autoreject.github.io). 
+* A full working installation of MNE Python (https://www.martinos.org/mne/stable/install_mne_python.html). MNE has updated the way it handles status/triggers for BioSemi, so we strongly recommend using the latest version (v0.17)
+* A full working installation of Autoreject for MNE (http://autoreject.github.io). 
+* A full working installation of Networkx `pip install networkx` to run graph analyses
+* We use HDF5 to store intermediate datafiles `pip install h5py` and the Pytables dependency `conda install pytables`
+* We use seaborn `pip install seaborn` and joypy `pip install joypy` for various plots
+
 
 ### Notes:
 * So far this implementation has only been tested on Linux (Ubuntu 16.06 LTS) with an Anaconda implementation of Python 3.6
 
 ### Still to do
-* Actually do some network analysis
-* Create some statistical analysis scripts
-* Create some scripts for visualizations
+* Iterate graph metrics over difference densities
+* Implement feature extraction and machine learning
+* Complete data collection
